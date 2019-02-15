@@ -111,5 +111,35 @@ function cities(){
   	$('table').on('click', clickme);
   };
 
-  //call the initialize function when the document has loaded
-  $(document).ready(initialize);
+///////////////////////
+
+//callback method to put the data into the divider
+function debugCallback(response){
+    mydata = response
+	$("#mydiv").append('<br>GeoJSON data:<br> ' + JSON.stringify(mydata));//line that actually displays the data
+};
+
+//function to retrieve data from geojson
+function debugAjax(){
+	//define a variable to hold the data
+	var mydata;
+    //basic jQuery ajax method
+	$.ajax("data/MegaCities.geojson", {
+		dataType: "json", //define datatype
+		success: function(response){
+            mydata = response; //assign response to varable
+            debugCallback(mydata);
+            console.log(mydata)
+		}
+	});
+
+    console.log('This is undefined: ' + mydata);
+    
+};
+
+$(document).ready(debugAjax);
+
+
+
+
+
